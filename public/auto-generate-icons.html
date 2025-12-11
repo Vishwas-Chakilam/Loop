@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto-Generate PWA Icons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔵 Loop PWA Icon Generator</h1>
+    <div id="status" class="status info">
+        Ready to generate icons. Click the button below to create and download both icon sizes.
+    </div>
+    
+    <canvas id="icon192" width="192" height="192"></canvas>
+    <canvas id="icon512" width="512" height="512"></canvas>
+    
+    <div>
+        <button onclick="generateAndDownloadAll()">📥 Generate & Download All Icons</button>
+        <button onclick="downloadIcon(192)">Download 192x192</button>
+        <button onclick="downloadIcon(512)">Download 512x512</button>
+    </div>
+    
+    <div style="margin-top: 30px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+        <h3>📋 Instructions:</h3>
+        <ol>
+            <li>Click "Generate & Download All Icons"</li>
+            <li>Save <code>icon-192.png</code> and <code>icon-512.png</code></li>
+            <li>Place both files in the <code>public</code> folder of your project</li>
+            <li>Rebuild/redeploy your app</li>
+        </ol>
+    </div>
+    
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background - Apple Blue (#007AFF)
+            ctx.fillStyle = '#007AFF';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw loop icon (two circles)
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = Math.max(1, size * 0.1);
+            
+            const center = size / 2;
+            const radius = size * 0.3;
+            
+            // Outer circle
+            ctx.beginPath();
+            ctx.arc(center, center, radius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Inner circle to create loop effect
+            ctx.beginPath();
+            ctx.arc(center, center, radius * 0.6, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+        
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`icon${size}`);
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            updateStatus(`✓ Downloaded icon-${size}.png`);
+        }
+        
+        function generateAndDownloadAll() {
+            updateStatus('Generating icons...');
+            
+            // Draw both icons
+            drawIcon(document.getElementById('icon192'), 192);
+            drawIcon(document.getElementById('icon512'), 512);
+            
+            // Small delay to ensure canvas is ready
+            setTimeout(() => {
+                downloadIcon(192);
+                setTimeout(() => {
+                    downloadIcon(512);
+                    updateStatus('✅ All icons generated and downloaded! Place them in the public folder.', 'success');
+                }, 500);
+            }, 100);
+        }
+        
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+        
+        // Draw icons on load
+        window.onload = function() {
+            drawIcon(document.getElementById('icon192'), 192);
+            drawIcon(document.getElementById('icon512'), 512);
+            updateStatus('Icons preview ready. Click "Generate & Download All Icons" to download.', 'info');
+        };
+    </script>
+</body>
+</html>
+

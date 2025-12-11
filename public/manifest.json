@@ -1,0 +1,30 @@
+{
+  "name": "Loop - Habit Tracker",
+  "short_name": "Loop",
+  "description": "A minimalist, Apple-inspired habit tracker with gamification, analytics, and AI-powered insights.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F2F2F7",
+  "theme_color": "#007AFF",
+  "orientation": "portrait",
+  "scope": "/",
+  "id": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "health", "lifestyle"],
+  "screenshots": [],
+  "shortcuts": []
+}
+

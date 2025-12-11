@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate PWA Icons</title>
+</head>
+<body>
+    <h1>Generate PWA Icons for Loop</h1>
+    <p>Open this file in a browser and click the buttons to download icons.</p>
+    
+    <canvas id="icon192" width="192" height="192" style="border: 1px solid #ccc; margin: 10px;"></canvas>
+    <canvas id="icon512" width="512" height="512" style="border: 1px solid #ccc; margin: 10px;"></canvas>
+    
+    <br>
+    <button onclick="downloadIcon(192)">Download 192x192 icon</button>
+    <button onclick="downloadIcon(512)">Download 512x512 icon</button>
+    
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background - Apple Blue
+            ctx.fillStyle = '#007AFF';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw a simple loop/circle icon
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = size * 0.1;
+            ctx.beginPath();
+            const center = size / 2;
+            const radius = size * 0.3;
+            ctx.arc(center, center, radius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Draw a smaller inner circle to create a loop effect
+            ctx.beginPath();
+            ctx.arc(center, center, radius * 0.6, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+        
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`icon${size}`);
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Draw icons on load
+        window.onload = function() {
+            drawIcon(document.getElementById('icon192'), 192);
+            drawIcon(document.getElementById('icon512'), 512);
+        };
+    </script>
+</body>
+</html>
+
