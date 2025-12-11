@@ -29,5 +29,5 @@ I built Loop as a clean, Apple-inspired habit tracker that actually nudges me to
 Then open http://localhost:3000. To install as a PWA, use the browser’s install/add-to-home-screen prompt (icons and manifest are included).
 
 ## Deploy / preview
-- AI Studio preview: https://ai.studio/apps/drive/1xVgnpo5nqaVlLRptswnWNzLOmZ4YtjmO
+- App preview: https://www.loop-onee.netlify.app
 - Static build: `npm run build` then serve `dist/`
